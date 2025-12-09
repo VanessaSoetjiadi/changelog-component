@@ -1,4 +1,8 @@
 /* height */
+.height-5vh {
+  height: 5vh;
+}
+
 .height-8vh {
   height: 8vh;
 }
@@ -11,6 +15,11 @@
 .vert-line {
   border-left: 3px solid black;
   height: 8vh;
+}
+
+.vert-line-between {
+  border-left: 3px solid black;
+  height: 5vh;
 }
 
 /* circle */
@@ -41,7 +50,7 @@
 .disp-grid-3col {
   display: grid;
 
-  grid-template-columns: 35% 10% 55%;
+  grid-template-columns: 30% 10% 60%;
 }
 
 /* fonts */
@@ -71,7 +80,10 @@
 }
 
 /* paddings */
-/* block */
+/* inline */
+.pad-inline-15px {
+  padding-inline: 15px;
+}
 
 
 /* borders */

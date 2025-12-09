@@ -22,13 +22,40 @@ body {
 #main-list {
   height: 60vh;
   background-color: red;
+
+  overflow: hidden;
 }
 
-#main-button {
+#main-bottom {
   height: 15vh;
 }
 
 /* classes */
+.main-list-left-element {
+  display: flex;
+
+  align-items: center;
+  justify-content: right;
+
+  height: 25px;
+}
+
+.main-list-middle-element {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.main-list-right-element {
+  display: flex;
+
+  align-items: center;
+  justify-content: left;
+
+  height: 25px;
+}
+
 .button-bottom {
   background-color: black;
   color: white;
@@ -37,4 +64,9 @@ body {
   padding: 15px 32px;
   cursor: pointer;
   font-size: 14px;
+}
+
+.input-bottom {
+  border: 1px solid black;
+  padding: 5px 8px;
 }
