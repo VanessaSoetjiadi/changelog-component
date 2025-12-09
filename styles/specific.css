@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+}
+
+/* id */
+#content-container {
+  width: 100vh;
+}
+
+#container-header {
+  height: 25vh;
+}
+
+#container-main {
+  height: 75vh;
+}
+
+#header-subtitle {
+  height: 5vh;
+}
+
+#main-list {
+  height: 60vh;
+  background-color: red;
+}
+
+#main-button {
+  height: 15vh;
+}
+
+/* classes */
+.button-bottom {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 32px;
+  cursor: pointer;
+  font-size: 14px;
+}

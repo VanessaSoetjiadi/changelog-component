@@ -1,0 +1,89 @@
+/* height */
+.height-8vh {
+  height: 8vh;
+}
+
+.height-25px {
+  height: 25px;
+}
+
+/* line */
+.vert-line {
+  border-left: 3px solid black;
+  height: 8vh;
+}
+
+/* circle */
+.circ {
+  height: 25px;
+  width: 25px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+/* classes */
+/* displays */
+.disp-flex-center {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.dis-flex-left {
+  justify-content: left;
+}
+
+.dis-flex-right {
+  justify-content: right;
+}
+
+.disp-grid-3col {
+  display: grid;
+
+  grid-template-columns: 35% 10% 55%;
+}
+
+/* fonts */
+/* family */
+.font-family-arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* colors */
+.font-color-lightgrey {
+  color: rgb(178, 178, 178);
+}
+
+/* sizes */
+.font-size-45px {
+  font-size: 45px;
+}
+
+.font-size-15px {
+  font-size: 15px;
+}
+
+/* margins */
+/* block */
+.marg-block-30px {
+  margin-block: 30px;
+}
+
+/* paddings */
+/* block */
+
+
+/* borders */
+.border-2px-solid-black {
+  border: 2px solid black;
+}
+
+/* border radius */
+.border-radius-25px {
+  border-radius: 25px;
+}
+
+.background-red {
+  background-color: red;
+}
