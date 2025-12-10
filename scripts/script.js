@@ -68,6 +68,24 @@ function addNewLog (date, description) {
   document.getElementById("main-list-right-container").appendChild(newElementRight)
 }
 
+// check if the maximum log (6) is filled or not, if not then add a new Log to fil in the spaces
+function checkMaxLog (max) {
+  const leftContainer = Array.from(document.getElementById("main-list-left-container").children)
+  if (!leftContainer) return false;
+
+  let count = 0;
+  for (let element of leftContainer) {
+    const eClass = element.classList;
+
+    if (eClass.contains("main-list-left-element")) {
+      count++;
+      
+      if (count > max) return true;
+    };
+  }
+  return false;
+}
+
 function main () {
   mainListBottomVert();
   addNewLog("2 August 2214", "Gooning");
@@ -75,6 +93,7 @@ function main () {
   addNewLog("2 August 2214", "Gooning");
   addNewLog("2 August 2214", "Gooning");
   addNewLog("2 August 2214", "Gooning");
+  console.log(checkMaxLog (6));
 }
 
 document.addEventListener('DOMContentLoaded', main);
