@@ -16,84 +16,94 @@ function mainListBottomVert () {
   vertLineBottomMiddle.style.height = bottomVertLineHeight;
 }
 
-// adding new log to the html
-function addNewLog (date, description) {
-  // creating the space between the new element and the last element, for both left and right containers
-  const space = document.createElement("div")
-  space.classList.add("height-5vh")
-
-  const spaceClone = space.cloneNode(true)
-
-  document.getElementById("main-list-left-container").appendChild(space)
-  document.getElementById("main-list-right-container").appendChild(spaceClone)
-
-  // creating the line between the new element and the last element for the middle container
-  const lineContainer = document.createElement("div")
-  lineContainer.classList.add("main-list-middle-element")
-  
-  const line = document.createElement("div")
-  line.classList.add("vert-line-between")
-
-  lineContainer.appendChild(line)
-
-  document.getElementById("main-list-middle-container").appendChild(lineContainer)
-
-  // creating the new left element and appending it to the document
-  const newElementLeft = document.createElement("div")
-  newElementLeft.classList.add("main-list-left-element")
-  
-  const dateInp = document.createTextNode(date)
-  newElementLeft.appendChild(dateInp)
-
-  document.getElementById("main-list-left-container").appendChild(newElementLeft)
-
-  // creating the new middle element
-  const newElementMiddle = document.createElement("div")
-  newElementMiddle.classList.add("main-list-middle-element")
-
-  const circle = document.createElement("div")
-  circle.classList.add("circ")
-
-  newElementMiddle.appendChild(circle)
-
-  document.getElementById("main-list-middle-container").appendChild(newElementMiddle)
-
-  // creating the new middle element
-  const newElementRight = document.createElement("div")
-  newElementRight.classList.add("main-list-right-element")
-  
-  const desc = document.createTextNode(description)
-  newElementRight.appendChild(desc)
-
-  document.getElementById("main-list-right-container").appendChild(newElementRight)
-}
-
-// check if the maximum log (6) is filled or not, if not then add a new Log to fil in the spaces
-function checkMaxLog (max) {
-  const leftContainer = Array.from(document.getElementById("main-list-left-container").children)
-  if (!leftContainer) return false;
-
-  let count = 0;
-  for (let element of leftContainer) {
-    const eClass = element.classList;
-
-    if (eClass.contains("main-list-left-element")) {
-      count++;
-      
-      if (count > max) return true;
-    };
+class LogTracker {
+  constructor (max) {
+    this.maxLogCount = max;
   }
-  return false;
+
+  // adding a new Log to the html container
+  addNewLog (date, description) {
+    // creating the space between the new element and the last element, for both left and right containers
+    const space = document.createElement("div")
+    space.classList.add("height-5vh")
+
+    const spaceClone = space.cloneNode(true)
+
+    document.getElementById("main-list-left-container").appendChild(space)
+    document.getElementById("main-list-right-container").appendChild(spaceClone)
+
+    // creating the line between the new element and the last element for the middle container
+    const lineContainer = document.createElement("div")
+    lineContainer.classList.add("main-list-middle-element")
+    
+    const line = document.createElement("div")
+    line.classList.add("vert-line-between")
+
+    lineContainer.appendChild(line)
+
+    document.getElementById("main-list-middle-container").appendChild(lineContainer)
+
+    // creating the new left element and appending it to the document
+    const newElementLeft = document.createElement("div")
+    newElementLeft.classList.add("main-list-left-element")
+    
+    const dateInp = document.createTextNode(date)
+    newElementLeft.appendChild(dateInp)
+
+    document.getElementById("main-list-left-container").appendChild(newElementLeft)
+
+    // creating the new middle element
+    const newElementMiddle = document.createElement("div")
+    newElementMiddle.classList.add("main-list-middle-element")
+
+    const circle = document.createElement("div")
+    circle.classList.add("circ")
+
+    newElementMiddle.appendChild(circle)
+
+    document.getElementById("main-list-middle-container").appendChild(newElementMiddle)
+
+    // creating the new middle element
+    const newElementRight = document.createElement("div")
+    newElementRight.classList.add("main-list-right-element")
+    
+    const desc = document.createTextNode(description)
+    newElementRight.appendChild(desc)
+
+    document.getElementById("main-list-right-container").appendChild(newElementRight)
+  }
+
+  // check if the log is maxed out or not, if not then add a new Log to fil in the spaces; true if number of logs > max, false if not
+  checkMaxLog () {
+    const leftContainer = Array.from(document.getElementById("main-list-left-container").children)
+    if (!leftContainer) return false;
+
+    let count = 0;
+    for (let element of leftContainer) {
+      const eClass = element.classList;
+
+      if (eClass.contains("main-list-left-element")) {
+        count++;
+        
+        if (count > this.max) return true;
+      };
+    }
+    return false;
+  }
 }
 
 function main () {
+  const logTracker = new LogTracker(5)
+
+  logTracker.addNewLog("2 August 2214", "Gooning");
+
   mainListBottomVert();
-  addNewLog("2 August 2214", "Gooning");
-  addNewLog("2 August 2214", "Gooning");
-  addNewLog("2 August 2214", "Gooning");
-  addNewLog("2 August 2214", "Gooning");
-  addNewLog("2 August 2214", "Gooning");
-  console.log(checkMaxLog (6));
+  //addNewLog("2 August 2214", "Gooning");
+  // addNewLog("2 August 2214", "Gooning");
+  // addNewLog("2 August 2214", "Gooning");
+  // addNewLog("2 August 2214", "Gooning");
+  // addNewLog("2 August 2214", "Gooning");
+  console.log(logTracker.checkMaxLog());
 }
 
 document.addEventListener('DOMContentLoaded', main);
