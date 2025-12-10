@@ -1,19 +1,27 @@
-// determine the bottom list vertical line length
-function mainListBottomVert () {
-  // determining the top, middle heights
-  const heights = [ 
-    document.getElementById("main-list").clientHeight, 
-    document.getElementById("main-list-top").clientHeight, document.getElementById("main-list-content").clientHeight 
-  ]
+class DynamicContainer {
+  constructor () {}
 
-  // determining the bottom height
-  const bottomVertLineHeight = heights[0] - heights[1] - heights[2]
+  initializeContainer () {
+    this.mainListBottomVert ();
+  }
 
-  // getting the bottom vertical line element
-  const bottomMiddle = document.getElementById("main-list-bottom-middle")
-  let vertLineBottomMiddle = bottomMiddle.getElementsByClassName('vert-line')[0] // selecting the (assumed) only element
+  // determine the bottom list vertical line length
+  mainListBottomVert () {
+    // determining the top, middle heights
+    const heights = [ 
+      document.getElementById("main-list").clientHeight, 
+      document.getElementById("main-list-top").clientHeight, document.getElementById("main-list-content").clientHeight 
+    ]
 
-  vertLineBottomMiddle.style.height = bottomVertLineHeight;
+    // determining the bottom height
+    const bottomVertLineHeight = heights[0] - heights[1] - heights[2]
+
+    // getting the bottom vertical line element
+    const bottomMiddle = document.getElementById("main-list-bottom-middle")
+    let vertLineBottomMiddle = bottomMiddle.getElementsByClassName('vert-line')[0] // selecting the (assumed) only element
+
+    vertLineBottomMiddle.style.height = bottomVertLineHeight;
+  }
 }
 
 class LogTracker {
@@ -94,16 +102,11 @@ class LogTracker {
 
 function main () {
   const logTracker = new LogTracker(5)
+  const dynContainer = new DynamicContainer();
+
+  dynContainer.initializeContainer();
 
   logTracker.addNewLog("2 August 2214", "Gooning");
-
-  mainListBottomVert();
-  //addNewLog("2 August 2214", "Gooning");
-  // addNewLog("2 August 2214", "Gooning");
-  // addNewLog("2 August 2214", "Gooning");
-  // addNewLog("2 August 2214", "Gooning");
-  // addNewLog("2 August 2214", "Gooning");
-  console.log(logTracker.checkMaxLog());
 }
 
 document.addEventListener('DOMContentLoaded', main);
