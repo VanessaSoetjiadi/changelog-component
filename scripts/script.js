@@ -47,11 +47,17 @@ class DynamicContainer {
 
 class LogTracker {
   constructor (max) {
-    this.maxLogCount = max;
+    this.maxLogs = max;
+    this.logCount = 0;
   }
 
-  // adding a new Log to the html container
+  // adding a new Log to the html container, if log count < max then add the new log, if not then don't add the new log
   addNewLog (date, description) {
+    if (this.checkMaxLog() === true) {
+      console.log("❌ Max logs reached, not adding");
+      return false;
+    }
+
     // creating the space between the new element and the last element, for both left and right containers
     const space = document.createElement("div")
     space.classList.add("height-5vh")
@@ -100,24 +106,14 @@ class LogTracker {
     newElementRight.appendChild(desc)
 
     document.getElementById("main-list-right-container").appendChild(newElementRight)
+
+    this.logCount++;
   }
 
-  // check if the log is maxed out or not, if not then add a new Log to fil in the spaces; true if number of logs > max, false if not
+  // check if the log is maxed out or not
   checkMaxLog () {
-    const leftContainer = Array.from(document.getElementById("main-list-left-container").children)
-    if (!leftContainer) return false;
-
-    let count = 0;
-    for (let element of leftContainer) {
-      const eClass = element.classList;
-
-      if (eClass.contains("main-list-left-element")) {
-        count++;
-        
-        if (count > this.max) return true;
-      };
-    }
-    return false;
+    console.log(`Checking max log: ${this.logCount}/${this.maxLogs}`);
+    return this.logCount >= this.maxLogs;
   }
 }
 
@@ -157,13 +153,44 @@ class inputHandler {
 }
 
 class GithubAPI {
-  constructor () {}
+  constructor (logTracker) {
+    this.logTracker = logTracker;
+  }
 
   init () {}
 
   async getUserEvents (username) {
     try {
-      const username = await this.validateUsername(username)
+      await this.validateUsername(username)
+
+      const response = await fetch (`https://api.github.com/users/${username}/events`)
+
+      if (response.status != 200) {
+        throw new Error ("API didn't return the user's Events")
+      }
+
+      const events = await response.json();
+        
+      if (!Array.isArray(events)) {
+        throw new Error(`Expected array but got: ${typeof events}`);
+      }
+
+      events.forEach(event => {
+        const date = new Date(event.created_at);
+        const formatted = date.toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        
+        const type = event.type;
+        const repo = event.repo.name;
+
+        const str = `${type} on ${repo}`
+
+        this.logTracker.addNewLog(formatted, str);
+      });
+      
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -171,7 +198,7 @@ class GithubAPI {
 
   async validateUsername (username) {
     try {
-      fetch (`https://api.github.com/users/${ username }`)
+      fetch (`https://api.github.com/users/${username}`)
       .then(response => {
         if (response.status != 200) {
           throw new Error ("Couldn't find username")
@@ -181,8 +208,6 @@ class GithubAPI {
       console.error(error)
     }
   }
-
-
 }
 
 async function main () {
@@ -192,14 +217,10 @@ async function main () {
   const formHandler = new inputHandler("usernameInput", "submitButton");
   formHandler.init();
 
-  const githubAPI = new GithubAPI();
-  githubAPI.validateUsername('VanessaSoetjiadi')
+  const githubAPI = new GithubAPI(logTracker);
+  githubAPI.getUserEvents("VanessaSoetjiadi");
 
-  // initializing the container 
   dynContainer.initializeContainer();
-  
-  logTracker.addNewLog("2 August 2214", "Gooning");
-
   dynContainer.readjustContainer();
 }
 
