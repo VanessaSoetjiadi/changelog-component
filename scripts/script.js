@@ -121,31 +121,47 @@ class LogTracker {
   }
 }
 
-// functions for input form
-const input = document.getElementById("usernameInput");
-
-input.addEventListener(("keypress"), function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    logUsername();
+class inputHandler {
+  constructor (inputBoxName, submitButtonName) {
+    this.input = document.getElementById(inputBoxName);
+    this.button = document.getElementById(submitButtonName);
   }
-})
 
-function logUsername () {
-  // get the username
-  const username = input.value.trim();
+  init() {
+    this.bindEvents();
+  }
 
-  if (username) {
-    console.log(username);
+  bindEvents () {
+    this.input.addEventListener(("keypress"), this.handleKeyPress.bind(this));
+    this.button.addEventListener(("click"), this.handleSubmit.bind(this));
+  }
+
+  handleKeyPress (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.handleSubmit(event);
+    }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
     
-    // clear the input box
-    input.value = "";
+    const username = this.input.value.trim();
+    
+    if (username) {
+      console.log(username);
+    }
+
+    this.input.value = "";
   }
 }
 
 function main () {
   const logTracker = new LogTracker(5)
   const dynContainer = new DynamicContainer();
+  
+  const formHandler = new inputHandler("usernameInput", "submitButton");
+  formHandler.init();
 
   // initializing the container 
   dynContainer.initializeContainer();
