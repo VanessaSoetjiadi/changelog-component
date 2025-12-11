@@ -156,12 +156,44 @@ class inputHandler {
   }
 }
 
-function main () {
+class GithubAPI {
+  constructor () {}
+
+  init () {}
+
+  async getUserEvents (username) {
+    try {
+      const username = await this.validateUsername(username)
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
+
+  async validateUsername (username) {
+    try {
+      fetch (`https://api.github.com/users/${ username }`)
+      .then(response => {
+        if (response.status != 200) {
+          throw new Error ("Couldn't find username")
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
+}
+
+async function main () {
   const logTracker = new LogTracker(5)
   const dynContainer = new DynamicContainer();
   
   const formHandler = new inputHandler("usernameInput", "submitButton");
   formHandler.init();
+
+  const githubAPI = new GithubAPI();
+  githubAPI.validateUsername('VanessaSoetjiadi')
 
   // initializing the container 
   dynContainer.initializeContainer();
