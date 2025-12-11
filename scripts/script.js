@@ -5,22 +5,44 @@ class DynamicContainer {
     this.mainListBottomVert ();
   }
 
+  readjustContainer () {
+    this.fixMainListBottomRowHeight();
+  }
+
   // determine the bottom list vertical line length
   mainListBottomVert () {
     // determining the top, middle heights
-    const heights = [ 
-      document.getElementById("main-list").clientHeight, 
-      document.getElementById("main-list-top").clientHeight, document.getElementById("main-list-content").clientHeight 
+    // const heights = [ 
+    //   document.getElementById("main-list").clientHeight, 
+    //   document.getElementById("main-list-top").clientHeight, document.getElementById("main-list-content").clientHeight 
+    // ]
+
+    // // determining the bottom height
+    // const bottomVertLineHeight = heights[0] - heights[1] - heights[2]
+
+    // // getting the bottom vertical line element
+    // const bottomMiddle = document.getElementById("main-list-bottom-middle")
+    // let vertLineBottomMiddle = bottomMiddle.getElementsByClassName('vert-line')[0] // selecting the (assumed) only element
+
+    // vertLineBottomMiddle.style.height = bottomVertLineHeight;
+  }
+
+  // readjust the bottom container height
+ fixMainListBottomRowHeight () {
+    // getting the top, middle component height
+    const listComponentHeights = [
+      document.getElementById("main-list-top").clientHeight,
+      document.getElementById("main-list-content").clientHeight,
     ]
 
-    // determining the bottom height
-    const bottomVertLineHeight = heights[0] - heights[1] - heights[2]
+    // getting the main list height to be subtracted from
+    let bottomContainerHeight = document.getElementById("main-list").clientHeight;
 
-    // getting the bottom vertical line element
-    const bottomMiddle = document.getElementById("main-list-bottom-middle")
-    let vertLineBottomMiddle = bottomMiddle.getElementsByClassName('vert-line')[0] // selecting the (assumed) only element
+    listComponentHeights.forEach(componentHeight => {
+      bottomContainerHeight = bottomContainerHeight - componentHeight;
+    })
 
-    vertLineBottomMiddle.style.height = bottomVertLineHeight;
+    document.getElementById("main-list-bottom").style.height = bottomContainerHeight;
   }
 }
 
@@ -104,9 +126,12 @@ function main () {
   const logTracker = new LogTracker(5)
   const dynContainer = new DynamicContainer();
 
+  // initializing the container 
   dynContainer.initializeContainer();
-
+  
   logTracker.addNewLog("2 August 2214", "Gooning");
+
+  dynContainer.readjustContainer();
 }
 
 document.addEventListener('DOMContentLoaded', main);

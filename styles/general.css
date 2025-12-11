@@ -47,6 +47,10 @@
   justify-content: right;
 }
 
+.disp-flex-between {
+  justify-content: space-between;
+}
+
 .disp-grid-3col {
   display: grid;
 
@@ -85,6 +89,9 @@
   padding-inline: 15px;
 }
 
+.pad-inline-60px {
+  padding-inline: 60px;
+}
 
 /* borders */
 .border-2px-solid-black {
