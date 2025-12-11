@@ -2,29 +2,26 @@ class DynamicContainer {
   constructor () {}
 
   initializeContainer () {
-    this.mainListBottomVert ();
+    this.fixMainListBottomVertLineHeight ();
   }
 
   readjustContainer () {
+    // fixing the bottom components
     this.fixMainListBottomRowHeight();
+    this.fixMainListBottomVertLineHeight ();
   }
 
   // determine the bottom list vertical line length
-  mainListBottomVert () {
-    // determining the top, middle heights
-    // const heights = [ 
-    //   document.getElementById("main-list").clientHeight, 
-    //   document.getElementById("main-list-top").clientHeight, document.getElementById("main-list-content").clientHeight 
-    // ]
+  fixMainListBottomVertLineHeight () {
+    // get the bottom container height
+    const bottomContainerHeight = this.fixMainListBottomRowHeight();
 
-    // // determining the bottom height
-    // const bottomVertLineHeight = heights[0] - heights[1] - heights[2]
+    const bottomVertLineContainer = document.getElementById("main-list-bottom-middle");
 
-    // // getting the bottom vertical line element
-    // const bottomMiddle = document.getElementById("main-list-bottom-middle")
-    // let vertLineBottomMiddle = bottomMiddle.getElementsByClassName('vert-line')[0] // selecting the (assumed) only element
+    // bottom container will never have additional lines
+    const bottomVertLine = bottomVertLineContainer.childNodes[1];
 
-    // vertLineBottomMiddle.style.height = bottomVertLineHeight;
+    bottomVertLine.style.height = bottomContainerHeight;
   }
 
   // readjust the bottom container height
@@ -43,6 +40,8 @@ class DynamicContainer {
     })
 
     document.getElementById("main-list-bottom").style.height = bottomContainerHeight;
+
+    return bottomContainerHeight;
   }
 }
 
