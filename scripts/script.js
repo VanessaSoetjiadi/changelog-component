@@ -121,6 +121,7 @@ class inputHandler {
   constructor (inputBoxName, submitButtonName) {
     this.input = document.getElementById(inputBoxName);
     this.button = document.getElementById(submitButtonName);
+    this.githubAPI = githubAPI;
   }
 
   init() {
@@ -139,13 +140,13 @@ class inputHandler {
     }
   }
 
-  handleSubmit(event) {
+  async andleSubmit(event) {
     event.preventDefault();
     
     const username = this.input.value.trim();
     
     if (username) {
-      console.log(username);
+      await this.githubAPI.getUserEvents(username);
     }
 
     this.input.value = "";
@@ -214,13 +215,12 @@ async function main () {
   const logTracker = new LogTracker(5)
   const dynContainer = new DynamicContainer();
   
-  const formHandler = new inputHandler("usernameInput", "submitButton");
+  const formHandler = new inputHandler("usernameInput", "submitButton", githubAPI);
   formHandler.init();
 
   const githubAPI = new GithubAPI(logTracker);
-  githubAPI.getUserEvents("VanessaSoetjiadi");
+  //await githubAPI.getUserEvents("VanessaSoetjiadi");
 
-  dynContainer.initializeContainer();
   dynContainer.readjustContainer();
 }
 

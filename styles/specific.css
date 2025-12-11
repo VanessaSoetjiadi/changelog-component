@@ -21,11 +21,6 @@ body {
 
 #main-list {
   height: 60vh;
-  background-color: cyan;
-}
-
-#main-list-bottom {
-  height: 20vh;
 }
 
 #main-bottom {
