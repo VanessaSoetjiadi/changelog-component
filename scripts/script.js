@@ -121,6 +121,28 @@ class LogTracker {
   }
 }
 
+// functions for input form
+const input = document.getElementById("usernameInput");
+
+input.addEventListener(("keypress"), function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    logUsername();
+  }
+})
+
+function logUsername () {
+  // get the username
+  const username = input.value.trim();
+
+  if (username) {
+    console.log(username);
+    
+    // clear the input box
+    input.value = "";
+  }
+}
+
 function main () {
   const logTracker = new LogTracker(5)
   const dynContainer = new DynamicContainer();

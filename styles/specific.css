@@ -26,11 +26,14 @@ body {
 
 #main-list-bottom {
   height: 20vh;
-  background-color: red;
 }
 
 #main-bottom {
   height: 15vh;
+}
+
+#main-bottom-input form {
+  margin: 0;
 }
 
 /* classes */
